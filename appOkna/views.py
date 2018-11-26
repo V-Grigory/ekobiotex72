@@ -22,4 +22,15 @@ def basePage(request):
 
 def product(request, pk):
     product = get_object_or_404(Products, pk=pk)
-    return render(request, 'appOkna/product.html', {'product': product})
+    base_context['product'] = product
+    return render(request, 'appOkna/product.html', base_context)
+
+def serviceArticle(request, pk):
+    serviceArticle = get_object_or_404(ServiceArticles, pk=pk)
+    base_context['serviceArticle'] = serviceArticle
+    return render(request, 'appOkna/serviceArticle.html', base_context)
+
+def informationArticle(request, pk):
+    informationArticle = get_object_or_404(InformationArticles, pk=pk)
+    base_context['informationArticle'] = informationArticle
+    return render(request, 'appOkna/informationArticle.html', base_context)

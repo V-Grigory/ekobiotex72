@@ -92,7 +92,9 @@
                                 <a id="main_menu_item_3" class="menu_item_allowed_to_hover_event">Информация</a>
                                 <div class="main_menu_usual_submenu">
                                     {% for informationArticle in informationArticles %}
-                                        <a href="#" class="main_menu_usual_submenu_a">
+                                        <a href="{% url 'informationArticle' pk=informationArticle.pk %}"
+                                           class="main_menu_usual_submenu_a"
+                                        >
                                             <span class="main_menu_usual_submenu_a_narrow"></span>
                                             {{informationArticle.title}}
                                         </a>
@@ -131,7 +133,7 @@
                     <!-- Сервис -->
                     <div data-content_main_menu="main_menu_item_2" class="main_menu_content_items">
                         {% for serviceArticle in serviceArticles %}
-                            <a href="#" class="main_menu_content_2_item">
+                            <a href="{% url 'serviceArticle' pk=serviceArticle.pk %}" class="main_menu_content_2_item">
                                 <img src="{{serviceArticle.image.url}}" class="main_menu_content_2_item_img">
                                 <div class="main_menu_content_2_item_title">{{serviceArticle.title}}</div>
                             </a>
@@ -140,11 +142,17 @@
                 </div>
             </div>
 
+
             <!-- ====== КОНТЕНТ ====== -->
-            {%block product%} {%endblock%}
+            <div class="content_block">
+                {%block product%} {%endblock%}
+                {%block serviceArticle%} {%endblock%}
+                {%block informationArticle%} {%endblock%}
+            </div>
 
 
             <!-- популярные товары -->
+            <br>
             <div class="content_block">
                 <h1 class="h1_in_content_block">Популярные продукты</h1>
                 <div class="row" style="margin: 0;">
@@ -152,9 +160,11 @@
                         {% for product in category.products_set.all %}
                             {% if product.is_popular %}
                                 <div class="col-md-2">
-                                    <img class="img_product" src="{{product.image.url}}">
-                                    <div class="title_product">{{product.title}}</div>
-                                    <div class="price_product">{{product.price}} р.</div>
+                                    <a href="{% url 'product' pk=product.pk %}" class="a_popular_product" >
+                                        <img class="img_product" src="{{product.image.url}}">
+                                        <div class="title_product">{{product.title}}</div>
+                                        <div class="price_product">{{product.price}} р.</div>
+                                    </a>
                                 </div>
                             {% endif%}
                         {% endfor %}
@@ -163,6 +173,7 @@
             </div>
 
             <!-- партнеры -->
+            <br>
             <div class="content_block">
                 <hr />
                 <h1 class="h1_in_content_block">Партнеры</h1>

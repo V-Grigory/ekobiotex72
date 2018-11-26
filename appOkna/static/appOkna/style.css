@@ -67,10 +67,21 @@ header {}
 
 /* == CONTENT == */
 .content_block {margin-top: 40px;}
-
     .h1_in_content_block {text-align: center;font-size: 30px;margin-bottom: 30px;}
 
+    /* основное содержимое */
+    .main_content {margin: 0 35px;}
+        /* товар */
+        .main_content_product_title {color: #30abeb; font-size: 38px; margin-bottom: 40px;}
+        .main_content_product_img {float: right; margin: 15px;}
+        .main_content_product_text {color: #333; font-size: 17px;}
+        /* статья */
+        .main_content_article_title {color: #30abeb; font-size: 38px; margin-bottom: 40px;}
+        .main_content_article_img {float: right; margin: 15px;}
+        .main_content_article_text {color: #333; font-size: 17px;}
+
     /* популярные товары */
+    .a_popular_product:hover {text-decoration: none;}
     .img_product {width: 100%;}
     .title_product {text-align: center;font-weight: bold;margin: 15px 0 0px 0;}
     .price_product {text-align: center;font-size: 24px;color: grey;}

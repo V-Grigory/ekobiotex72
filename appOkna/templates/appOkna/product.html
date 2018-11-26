@@ -1,6 +1,18 @@
 {% extends 'appOkna/base.html' %}
 
 {%block product%}
-    <h1>{{product.title}}</h1>
-    <p>Product !!!!!</p>
+
+    <div class="main_content">
+
+        <h1 class="main_content_product_title">{{ product.title }}</h1>
+
+        <img class="main_content_product_img" src="{{ product.image.url }}">
+
+        <div class="main_content_product_text">
+            <p>{{ product.text }}</p>
+        </div>
+
+        <div style="clear: both;"></div>
+    </div>
+
 {%endblock%}

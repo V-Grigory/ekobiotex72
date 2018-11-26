@@ -1,0 +1,18 @@
+{% extends 'appOkna/base.html' %}
+
+{%block serviceArticle%}
+
+    <div class="main_content">
+
+        <h1 class="main_content_article_title">{{ serviceArticle.title }}</h1>
+
+        <img class="main_content_article_img" src="{{ serviceArticle.image.url }}">
+
+        <div class="main_content_article_text">
+            <p>{{ serviceArticle.text }}</p>
+        </div>
+
+        <div style="clear: both;"></div>
+    </div>
+
+{%endblock%}

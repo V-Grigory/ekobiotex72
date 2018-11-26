@@ -1,0 +1,18 @@
+{% extends 'appOkna/base.html' %}
+
+{%block informationArticle%}
+
+    <div class="main_content">
+
+        <h1 class="main_content_article_title">{{ informationArticle.title }}</h1>
+
+{#        <img class="main_content_article_img" src="{{ informationArticle.image.url }}">#}
+
+        <div class="main_content_article_text">
+            <p>{{ informationArticle.text }}</p>
+        </div>
+
+        <div style="clear: both;"></div>
+    </div>
+
+{%endblock%}

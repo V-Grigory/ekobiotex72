@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="{% static 'appOkna/favicon.ico' %}">
+
+    <title>Окна</title>
+    <link href="{% static 'appOkna/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'appOkna/style.css' %}" rel="stylesheet">
+    <link href="{% static 'appOkna/fancybox-master/dist/jquery.fancybox.min.css' %}" rel="stylesheet">
+    <!--<script src="assets/script.js"></script>-->
+    <!--[if lt IE 9]>
+    <script src="{% static 'appOkna/ie8-responsive-file-warning.js' %}"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <header>
+        <div class="container">
+
+            <div class="contacts_wrap">
+                <div class="contacts">
+                    <a href="#" class="contacts_facebook">FACEBOOK</a>
+                    <a href="#" class="contacts_vk">VK</a>
+                    <a href="#" class="contacts_mail">mail@mail.ru</a>
+                </div>
+                <div class="links">
+                    <a href="#">ССЫЛКА</a> /
+                    <a href="#">КОНТАКТЫ</a> /
+                    <a href="#">ССЫЛКА</a> /
+                    <a href="#">БЛОГ</a>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="logo_slogan_wrap">
+                <a href="/" class="logo">
+                    <img class="logo_img" src="{% static 'appOkna/assetsImages/logo.svg' %}" />
+                </a>
+                <p class="slogan">Fensternorm - Qualität zu<br>konkurrenzlosen Preisen</p>
+                <p class="contact_phone">+7 999 111 22 33</p>
+
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- === CONTENT === -->
+    <div class="container">
+        <div style="background-color: #fff;">
+
+
+            <div id="main_menu">
+                <!-- menu -->
+                <div class="navbar navbar-inverse" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle"
+                        data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="">
+                                <a id="main_menu_item_1" class="dropdown-toggle" data-toggle="dropdown">ПРОДУКТЫ</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="display: block;">
+                                    {% for category in categoryProduct %}
+                                        <a id="{{category.id}}" class="menu_item_allowed_to_hover_event main_menu_item_1_submenu icon_main_menu_window" href="#">
+                                            {{category.title}}
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <li>
+                                <a id="main_menu_item_2" class="menu_item_allowed_to_hover_event">Сервис</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"></div>
+                            </li>
+                            <li>
+                                <a id="main_menu_item_3" class="menu_item_allowed_to_hover_event">Информация</a>
+                                <div class="main_menu_usual_submenu">
+                                    {% for informationArticle in informationArticles %}
+                                        <a href="#" class="main_menu_usual_submenu_a">
+                                            <span class="main_menu_usual_submenu_a_narrow"></span>
+                                            {{informationArticle.title}}
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <li>
+                                <a id="main_menu_item_4" class="menu_item_allowed_to_hover_event">Конфигуратор</a>
+                            </li>
+                            <li>
+                                <a id="main_menu_item_5" class="menu_item_allowed_to_hover_event">Портфолио</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- content menu -->
+                <div id="main_menu_content_wrapper">
+                    <!-- Товары -->
+                    {% for category in categoryProduct %}
+                        <div data-content_main_menu="{{category.id}}" class="main_menu_content_items">
+                            <div class="main_menu_content_1_title"></div>
+                            {% for product in category.products_set.all %}
+                                <div class="main_menu_content_1_item">
+                                    <a href="{% url 'product' pk=product.pk %}">
+                                        <img src="{{product.image.url}}" class="main_menu_content_1_item_img">
+                                        <div class="main_menu_content_1_item_title">{{product.title}}</div>
+                                    </a>
+                                    <div class="main_menu_content_1_item_price">{{product.price}}</div>
+                                </div>
+                            {% endfor %}
+                            <div style="clear: both;"></div>
+                        </div>
+                    {% endfor %}
+
+                    <!-- Сервис -->
+                    <div data-content_main_menu="main_menu_item_2" class="main_menu_content_items">
+                        {% for serviceArticle in serviceArticles %}
+                            <a href="#" class="main_menu_content_2_item">
+                                <img src="{{serviceArticle.image.url}}" class="main_menu_content_2_item_img">
+                                <div class="main_menu_content_2_item_title">{{serviceArticle.title}}</div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- ====== КОНТЕНТ ====== -->
+            {%block product%} {%endblock%}
+
+
+            <!-- популярные товары -->
+            <div class="content_block">
+                <h1 class="h1_in_content_block">Популярные продукты</h1>
+                <div class="row" style="margin: 0;">
+                    {% for category in categoryProduct %}
+                        {% for product in category.products_set.all %}
+                            {% if product.is_popular %}
+                                <div class="col-md-2">
+                                    <img class="img_product" src="{{product.image.url}}">
+                                    <div class="title_product">{{product.title}}</div>
+                                    <div class="price_product">{{product.price}} р.</div>
+                                </div>
+                            {% endif%}
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- партнеры -->
+            <div class="content_block">
+                <hr />
+                <h1 class="h1_in_content_block">Партнеры</h1>
+                <div class="partners_block">
+                    {% for partner in partners %}
+                        <img src="{{partner.image.url}}" class="partners_img">
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="container">
+        <footer>
+            <div class="footer_left_side">
+                <img class="logo_footer_img" src="{% static 'appOkna/assetsImages/logo_footer.png' %}" />
+                <div class="footer_slogan">FENSTERNORM - Markenqualität<br>aus einer Hand zu unschlagbaren<br>Preisen!</div>
+            </div>
+            <div class="footer_right_side">
+                <div class="footer_block_content footer_address">
+                    <p class="footer_title">Адрес</p>
+                    Triester Straße 257,<br>A-1230 Wien, Österreich
+                </div>
+                <div class="footer_block_content footer_phone">
+                    <p class="footer_title">Контакты</p>
+                    Tel: + 43 1 996 2094<br>
+                    Fax: + 43 699 1527 4856
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div style="clear: both;"></div>
+        </footer>
+    </div>
+
+
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <script src="{% static 'appOkna/jQuery-v1.11.0.js' %}"></script>
+    <script src="{% static 'appOkna/bootstrap.min.js' %}"></script>
+    <!--<script src="assets/jquery.animateNumber.min.js"></script>-->
+    <script src="{% static 'appOkna/script.js' %}"></script>
+    <script src="{% static 'appOkna/fancybox-master/dist/jquery.fancybox.js' %}"></script>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+        // (function (d, w, c) {
+        //     (w[c] = w[c] || []).push(function() {
+        //         try {
+        //             w.yaCounter48514871 = new Ya.Metrika({
+        //                 id:48514871,
+        //                 clickmap:true,
+        //                 trackLinks:true,
+        //                 accurateTrackBounce:true,
+        //                 webvisor:true
+        //             });
+        //         } catch(e) { }
+        //     });
+        //
+        //     var n = d.getElementsByTagName("script")[0],
+        //         s = d.createElement("script"),
+        //         f = function () { n.parentNode.insertBefore(s, n); };
+        //     s.type = "text/javascript";
+        //     s.async = true;
+        //     s.src = "https://mc.yandex.ru/metrika/watch.js";
+        //
+        //     if (w.opera == "[object Opera]") {
+        //         d.addEventListener("DOMContentLoaded", f, false);
+        //     } else { f(); }
+        // })(document, window, "yandex_metrika_callbacks");
+    </script>
+    <!--<noscript><div><img src="https://mc.yandex.ru/watch/48514871" style="position:absolute; left:-9999px;" alt="" /></div></noscript>-->
+    <!-- /Yandex.Metrika counter -->
+
+</body>
+</html>

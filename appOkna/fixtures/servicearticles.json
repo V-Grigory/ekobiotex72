@@ -1,0 +1,15 @@
+[
+  {
+    "model": "appOkna.ServiceArticles",
+    "pk": 1,
+    "fields": {
+      "title": "Loremipsum",
+      "text": "Lennon"
+    }
+  },
+  {
+    "model": "appOkna.ServiceArticles",
+    "pk": 2,
+    "fields": {"title": "Loremipsumqweq","text": "Lennon qwe qwe wq"}
+  }
+]

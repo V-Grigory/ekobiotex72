@@ -11,6 +11,9 @@ class CategoryProduct (models.Model):
 
     def __str__(self):
         return self.title
+    class Meta:
+        verbose_name = 'Категория товара'
+        verbose_name_plural = 'Категории товаров'
 
 class Products (models.Model):
     category = models.ForeignKey(CategoryProduct, on_delete='CASCADE', verbose_name='Категория товара')
@@ -23,6 +26,9 @@ class Products (models.Model):
 
     def __str__(self):
         return self.title
+    class Meta:
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товары'
 
 class ServiceArticles (models.Model):
     title = models.CharField('Название', max_length=100)
@@ -36,6 +42,9 @@ class ServiceArticles (models.Model):
 
     def __str__(self):
         return self.title
+    class Meta:
+        verbose_name = 'Сервис'
+        verbose_name_plural = 'Сервисы'
 
 class InformationArticles (models.Model):
     title = models.CharField('Название', max_length=100)
@@ -45,6 +54,9 @@ class InformationArticles (models.Model):
 
     def __str__(self):
         return self.title
+    class Meta:
+        verbose_name = 'Информация'
+        verbose_name_plural = 'Информация'
 
 class Partners (models.Model):
     title = models.CharField('Название', max_length=100)
@@ -53,3 +65,6 @@ class Partners (models.Model):
 
     def __str__(self):
         return self.title
+    class Meta:
+        verbose_name = 'Партнер'
+        verbose_name_plural = 'Партнеры'

@@ -25,7 +25,7 @@ SECRET_KEY = '=-+3&=bzzs156911z(+4pekxh70v!0v7(na!a1z6=k5e@^&0u$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ekobiotex-72.ru']
+ALLOWED_HOSTS = ['ekobiotex-72.ru', 'localhost']
 
 
 # Application definition

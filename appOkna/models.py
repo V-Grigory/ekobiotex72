@@ -36,10 +36,6 @@ class ServiceArticles (models.Model):
     image = models.FileField('Изображение', upload_to = upload_directory)
     created_date = models.DateTimeField('Дата создания', default = timezone.now)
 
-    # def publish(self):
-    #     self.published_date = timezone.now()
-    #     self.save()
-
     def __str__(self):
         return self.title
     class Meta:
@@ -68,3 +64,26 @@ class Partners (models.Model):
     class Meta:
         verbose_name = 'Партнер'
         verbose_name_plural = 'Партнеры'
+
+class Params (models.Model):
+    product = models.OneToOneField(Products, on_delete = models.CASCADE, primary_key = False, default = None, blank = True, null = True)
+    title = models.CharField('title', max_length = 100, default = '', blank = True)
+    description = models.TextField('description', max_length = 1000, default = '', blank = True)
+    keywords = models.TextField('keywords', max_length = 600, default = '', blank = True)
+
+    def __str__(self):
+        return 'Параметры'
+    class Meta:
+        verbose_name = 'Параметры'
+        verbose_name_plural = 'Параметры'
+
+class Mainpage (models.Model):
+    title = models.CharField('title', max_length = 100, default = '', blank = True)
+    description = models.TextField('description', max_length = 1000, default = '', blank = True)
+    keywords = models.TextField('keywords', max_length = 600, default = '', blank = True)
+
+    def __str__(self):
+        return 'Главная страница'
+    class Meta:
+        verbose_name = 'Главная страница'
+        verbose_name_plural = 'Главная страница'

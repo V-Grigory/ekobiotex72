@@ -1,0 +1,25 @@
+{% extends 'appOkna/base.html' %}
+
+{%block information%}
+
+    <div class="main_content">
+
+        {% include "appOkna/breadcrumbs.html" with type_entity="information" %}
+
+        <h1 class="main_content_article_title">Информация</h1>
+
+        {% for informationArticle in informationArticles %}
+
+            <p>
+                <a href="{% url 'informationArticle' slug=informationArticle.slug %}" class="article_item">
+                    {{informationArticle.title}}
+                </a>
+            </p>
+
+
+        {% endfor %}
+
+        <div style="clear: both;"></div>
+    </div>
+
+{%endblock%}

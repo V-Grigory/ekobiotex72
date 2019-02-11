@@ -3,7 +3,13 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.basePage, name='basePage'),
-    url(r'^product/(?P<pk>[0-9]+)/$', views.product, name='product'),
-    url(r'^serviceArticle/(?P<pk>[0-9]+)/$', views.serviceArticle, name='serviceArticle'),
-    url(r'^informationArticle/(?P<pk>[0-9]+)/$', views.informationArticle, name='informationArticle'),
+
+    url(r'^service/$', views.service, name='service'),
+    url(r'^service/(?P<slug>[\w-]+)/$', views.serviceArticle, name='serviceArticle'),
+
+    url(r'^information/$', views.information, name='information'),
+    url(r'^information/(?P<slug>[\w-]+)/$', views.informationArticle, name='informationArticle'),
+
+    url(r'^(?P<categorySlug>[\w-]+)/$', views.categoryProducts, name='categoryProducts'),
+    url(r'^(?P<category>[\w-]+)/(?P<slug>[\w-]+)/$', views.product, name='product'),
 ]

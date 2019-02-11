@@ -1,0 +1,25 @@
+{% extends 'appOkna/base.html' %}
+
+{%block service%}
+
+    <div class="main_content">
+
+        {% include "appOkna/breadcrumbs.html" with type_entity="service" %}
+
+        <h1 class="main_content_article_title">Сервис</h1>
+
+        {% for serviceArticle in serviceArticles %}
+
+            <p>
+                <a href="{% url 'serviceArticle' slug=serviceArticle.slug %}" class="article_item">
+                    {{serviceArticle.title}}
+                </a>
+            </p>
+
+
+        {% endfor %}
+
+        <div style="clear: both;"></div>
+    </div>
+
+{%endblock%}

@@ -1,0 +1,27 @@
+{% extends 'appOkna/base.html' %}
+
+{%block categoryProducts%}
+
+    <div class="main_content">
+
+        {% include "appOkna/breadcrumbs.html" with type_entity="categoryProducts" %}
+
+        <h1 class="main_content_product_title">{{ categoryProducts.title }}</h1>
+
+        {% for product in categoryProducts.products_set.all %}
+            <div class="col-md-2">
+                <a href="{% url 'product' category=product.category.slug slug=product.slug %}"
+                   class="a_popular_product" >
+                    {% if product.image.url != '' %}
+                        <img class="img_product" src="{{product.image.url}}">
+                    {% endif %}
+                    <div class="title_product">{{product.title}}</div>
+                    <div class="price_product">{{product.price}} р.</div>
+                </a>
+            </div>
+        {% endfor %}
+
+        <div style="clear: both;"></div>
+    </div>
+
+{%endblock%}

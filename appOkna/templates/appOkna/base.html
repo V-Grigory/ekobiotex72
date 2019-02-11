@@ -5,14 +5,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
+
+    <title>{{ seo.title }}</title>
+    <meta name="description" content="{{ seo.description }}">
+    <meta name="keywords" content="{{ seo.keywords }}">
     <meta name="author" content="">
     <link rel="shortcut icon" href="{% static 'appOkna/favicon.ico' %}">
 
-    <title>Окна</title>
     <link href="{% static 'appOkna/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'appOkna/style.css' %}" rel="stylesheet">
     <link href="{% static 'appOkna/fancybox-master/dist/jquery.fancybox.min.css' %}" rel="stylesheet">
+
+    <link rel="canonical" href="http://ekobiotex-72.ru{{ request.path }}"/>
+
     <!--<script src="assets/script.js"></script>-->
     <!--[if lt IE 9]>
     <script src="{% static 'appOkna/ie8-responsive-file-warning.js' %}"></script>
@@ -59,6 +64,69 @@
     <div class="container">
         <div style="background-color: #fff;">
 
+            <div id="main_menu_mobail">
+
+                <div class="navbar navbar-default" role="navigation">
+                    <div>
+                      <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                        </button>
+                      </div>
+                      <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Продукты <b class="caret"></b></a>
+                                <ul class="dropdown-menu dropdown-menu_mobail">
+                                    {% for category in categoryProduct %}
+                                        <li>
+                                            <a style="color: #fff;" href="{% url 'categoryProducts' categorySlug=category.slug %}">
+                                                {{category.title}}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Сервис <b class="caret"></b></a>
+                                <ul class="dropdown-menu dropdown-menu_mobail">
+                                    {% for serviceArticle in serviceArticles %}
+                                        <li>
+                                            <a style="color: #fff;" href="{% url 'serviceArticle' slug=serviceArticle.slug %}">
+                                                {{serviceArticle.title}}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Информация <b class="caret"></b></a>
+                                <ul class="dropdown-menu dropdown-menu_mobail">
+                                    {% for informationArticle in informationArticles %}
+                                        <li>
+                                            <a style="color: #fff;" href="{% url 'informationArticle' slug=informationArticle.slug %}">
+                                                {{informationArticle.title}}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+
+                          <li><a href="#">Конфигуратор</a></li>
+                          <li><a href="#">Портфолио</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+            </div>
+
 
             <div id="main_menu">
                 <!-- menu -->
@@ -78,7 +146,13 @@
                                 <a id="main_menu_item_1" class="dropdown-toggle" data-toggle="dropdown">ПРОДУКТЫ</a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="display: block;">
                                     {% for category in categoryProduct %}
-                                        <a id="{{category.id}}" class="menu_item_allowed_to_hover_event main_menu_item_1_submenu icon_main_menu_window" href="#">
+                                        {# костыль #}
+                                        {% if category.title == 'Деревоалюминиевые окна' %}
+                                            <a id="{{category.id}}" style="line-height: 1; padding: 10px 0 10px 52px;"
+                                               class="menu_item_allowed_to_hover_event main_menu_item_1_submenu icon_main_menu_window" href="#">
+                                        {% else %}
+                                            <a id="{{category.id}}" class="menu_item_allowed_to_hover_event main_menu_item_1_submenu icon_main_menu_window" href="#">
+                                        {% endif %}
                                             {{category.title}}
                                         </a>
                                     {% endfor %}
@@ -92,7 +166,7 @@
                                 <a id="main_menu_item_3" class="menu_item_allowed_to_hover_event">Информация</a>
                                 <div class="main_menu_usual_submenu">
                                     {% for informationArticle in informationArticles %}
-                                        <a href="{% url 'informationArticle' pk=informationArticle.pk %}"
+                                        <a href="{% url 'informationArticle' slug=informationArticle.slug %}"
                                            class="main_menu_usual_submenu_a"
                                         >
                                             <span class="main_menu_usual_submenu_a_narrow"></span>
@@ -119,8 +193,11 @@
                             <div class="main_menu_content_1_title"></div>
                             {% for product in category.products_set.all %}
                                 <div class="main_menu_content_1_item">
-                                    <a href="{% url 'product' pk=product.pk %}">
-                                        <img src="{{product.image.url}}" class="main_menu_content_1_item_img">
+                                    <a href="{% url 'product' category=product.category.slug slug=product.slug %}">
+{#                                    <a href="/{{ product.category.slug }}/{{ product.slug }}">#}
+                                        {% if product.image.url != '' %}
+                                            <img src="{{product.image.url}}" class="main_menu_content_1_item_img">
+                                        {% endif %}
                                         <div class="main_menu_content_1_item_title">{{product.title}}</div>
                                     </a>
                                     <div class="main_menu_content_1_item_price">{{product.price}}</div>
@@ -133,8 +210,10 @@
                     <!-- Сервис -->
                     <div data-content_main_menu="main_menu_item_2" class="main_menu_content_items">
                         {% for serviceArticle in serviceArticles %}
-                            <a href="{% url 'serviceArticle' pk=serviceArticle.pk %}" class="main_menu_content_2_item">
-                                <img src="{{serviceArticle.image.url}}" class="main_menu_content_2_item_img">
+                            <a href="{% url 'serviceArticle' slug=serviceArticle.slug %}" class="main_menu_content_2_item">
+                                {% if serviceArticle.image.url != '' %}
+                                    <img src="{{serviceArticle.image.url}}" class="main_menu_content_2_item_img">
+                                {% endif %}
                                 <div class="main_menu_content_2_item_title">{{serviceArticle.title}}</div>
                             </a>
                         {% endfor %}
@@ -145,8 +224,11 @@
 
             <!-- ====== КОНТЕНТ ====== -->
             <div class="content_block">
+                {%block categoryProducts%} {%endblock%}
                 {%block product%} {%endblock%}
+                {%block service%} {%endblock%}
                 {%block serviceArticle%} {%endblock%}
+                {%block information%} {%endblock%}
                 {%block informationArticle%} {%endblock%}
             </div>
 
@@ -154,14 +236,17 @@
             <!-- популярные товары -->
             <br>
             <div class="content_block">
-                <h1 class="h1_in_content_block">Популярные продукты</h1>
+                <p class="h1_in_content_block">Популярные продукты</p>
                 <div class="row" style="margin: 0;">
                     {% for category in categoryProduct %}
                         {% for product in category.products_set.all %}
                             {% if product.is_popular %}
                                 <div class="col-md-2">
-                                    <a href="{% url 'product' pk=product.pk %}" class="a_popular_product" >
-                                        <img class="img_product" src="{{product.image.url}}">
+                                    <a href="{% url 'product' category=product.category.slug slug=product.slug %}"
+                                       class="a_popular_product" >
+                                        {% if product.image.url != '' %}
+                                            <img class="img_product" src="{{product.image.url}}">
+                                        {% endif %}
                                         <div class="title_product">{{product.title}}</div>
                                         <div class="price_product">{{product.price}} р.</div>
                                     </a>
@@ -176,10 +261,12 @@
             <br>
             <div class="content_block">
                 <hr />
-                <h1 class="h1_in_content_block">Партнеры</h1>
+                <p class="h1_in_content_block">Партнеры</p>
                 <div class="partners_block">
                     {% for partner in partners %}
-                        <img src="{{partner.image.url}}" class="partners_img">
+                        {% if partner.image.url != '' %}
+                            <img src="{{partner.image.url}}" class="partners_img">
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>
@@ -194,15 +281,20 @@
                 <img class="logo_footer_img" src="{% static 'appOkna/assetsImages/logo_footer.png' %}" />
                 <div class="footer_slogan">FENSTERNORM - Markenqualität<br>aus einer Hand zu unschlagbaren<br>Preisen!</div>
             </div>
-            <div class="footer_right_side">
-                <div class="footer_block_content footer_address">
+            <div itemscope itemtype="http://schema.org/Organization" class="footer_right_side">
+                <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" class="footer_block_content footer_address">
                     <p class="footer_title">Адрес</p>
-                    Triester Straße 257,<br>A-1230 Wien, Österreich
+                    <span itemprop="postalCode">625056</span>, <span itemprop="addressLocality">Тюмень</span>,
+                    <br><span itemprop="streetAddress">пр. Воронинские горки 101/б оф.101</span>
                 </div>
                 <div class="footer_block_content footer_phone">
                     <p class="footer_title">Контакты</p>
-                    Tel: + 43 1 996 2094<br>
-                    Fax: + 43 699 1527 4856
+                    <span itemprop="telephone"><a class="footer_link" href="tel:+79044952827">Tel: +7 (904) 495-28-27</a></span>,
+                    <a class="footer_link" href="tel:+73452952827">+7 (3452) 95-28-27</a>
+                    <br>
+                    <span itemprop="faxNumber"><a class="footer_link" href="tel:+79044993505">Fax: +7 (904) 499-35-05</a></span>,
+                    <a class="footer_link" href="tel:+73452993505">+7 (3452) 99-35-05</a>
+
                 </div>
                 <div style="clear: both;"></div>
             </div>

@@ -1,0 +1,51 @@
+<ul>
+    <li class="bread_crumbs_li_item_link">
+        <a href="{% url 'basePage' %}" class="bread_crumbs_item_link">Главная</a> /
+    </li>
+    <li class="bread_crumbs_li_item_link">
+
+        {% if type_entity == 'categoryProducts' %}
+            {{ categoryProducts.title }}
+        {% endif %}
+
+        {% if type_entity == 'product' %}
+            <a href="{% url 'categoryProducts' categorySlug=product.category.slug %}" class="bread_crumbs_item_link">
+                {{ product.category }}
+            </a> /
+        {% endif %}
+
+        {% if type_entity == 'information' %}
+            Информация
+        {% endif %}
+        {% if type_entity == 'informationArticle' %}
+            <a href="{% url 'information' %}" class="bread_crumbs_item_link">
+                Информация
+            </a> /
+        {% endif %}
+
+        {% if type_entity == 'service' %}
+            Сервис
+        {% endif %}
+        {% if type_entity == 'serviceArticle' %}
+            <a href="{% url 'service' %}" class="bread_crumbs_item_link">
+                Сервис
+            </a> /
+        {% endif %}
+
+    </li>
+    <li class="bread_crumbs_li_item_link">
+
+        {% if type_entity == 'product' %}
+            {{ product.title }}
+        {% endif %}
+
+        {% if type_entity == 'informationArticle' %}
+            {{ informationArticle.title }}
+        {% endif %}
+
+        {% if type_entity == 'serviceArticle' %}
+            {{ serviceArticle.title }}
+        {% endif %}
+
+    </li>
+</ul>

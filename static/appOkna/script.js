@@ -69,7 +69,39 @@ $(document).ready(function() {
 
     });
 
+    convert_view_to_mobail();
+    console.log($(window).width());
 
+    function convert_view_to_mobail() {
+        if ($(window).width() <= 768) {
+            $('.nav > li').css("width", "100%");
+            $('header').css("display", "none");
+            $('#main_menu_mobail').css("position", "fixed");
+            $('#main_menu_mobail').parent().css("padding-top", "40px");
+        } else {
+            $('.nav > li').css("width", "20%");
+            $('header').css("display", "block");
+            $('#main_menu_mobail').css("position", "relative");
+            $('#main_menu_mobail').parent().css("padding-top", "0px");
+        }
+        if ($(window).width() <= 1185) {
+            //console.log('main_menu HIDE');
+            $('#main_menu').css("display", "none");
+            $('#main_menu_mobail').css("display", "block");
+        } else {
+            //console.log('main_menu SHOW');
+            $('#main_menu').css("display", "block");
+            $('#main_menu_mobail').css("display", "none");
+        }
+    }
+
+    $(window).resize(function() {
+        convert_view_to_mobail();
+    });
+
+    // if ($(window).width() <= 1185) {
+    //     console.log('aaaa');
+    // }
 
 
 

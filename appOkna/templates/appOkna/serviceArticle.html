@@ -4,9 +4,13 @@
 
     <div class="main_content">
 
+        {% include "appOkna/breadcrumbs.html" with type_entity="serviceArticle" %}
+
         <h1 class="main_content_article_title">{{ serviceArticle.title }}</h1>
 
-        <img class="main_content_article_img" src="{{ serviceArticle.image.url }}">
+        {% if serviceArticle.image.url != '' %}
+            <img class="main_content_article_img" src="{{ serviceArticle.image.url }}">
+        {% endif %}
 
         <div class="main_content_article_text">
             <p>{{ serviceArticle.text }}</p>
